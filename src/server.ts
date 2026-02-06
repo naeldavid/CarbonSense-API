@@ -4,7 +4,7 @@ import { apiKeyAuth, errorHandler, requestLogger } from './middleware/authentica
 import { rateLimit } from './middleware/rateLimit';
 import routes from './routes';
 
-export function createServer(): Express {
+function createServer(): Express {
   const app = express();
 
   // Middleware
@@ -64,4 +64,4 @@ export function createServer(): Express {
   return app;
 }
 
-export default createServer;
+export default createServer();
