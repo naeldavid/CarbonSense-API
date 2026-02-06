@@ -1,0 +1,254 @@
+openapi: 3.0.0
+info:
+  title: Carbon Footprint Calculation API
+  description: Fast, reliable carbon emissions calculation API with latest IPCC standards
+  version: 1.0.0
+  contact:
+    name: Support
+    email: support@carbonfoot.dev
+  license:
+    name: MIT
+
+servers:
+  - url: http://localhost:3000/api
+    description: Development server
+  - url: https://api.carbonfoot.dev
+    description: Production server
+
+paths:
+  /transportation/calculate:
+    post:
+      summary: Calculate transportation emissions
+      tags:
+        - Transportation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - distance
+                - method
+              properties:
+                distance:
+                  type: number
+                  example: 100
+                  description: Distance traveled
+                method:
+                  type: string
+                  example: car-gasoline
+                  description: Transportation method ID
+                distanceUnit:
+                  type: string
+                  enum: [km, miles]
+                  default: km
+                  description: Unit of distance
+      responses:
+        200:
+          description: Successful calculation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CalculationResponse'
+        400:
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /transportation/factors:
+    get:
+      summary: Get available transportation methods
+      tags:
+        - Transportation
+      responses:
+        200:
+          description: List of transportation methods with factors
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  methods:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        name:
+                          type: string
+                        factor:
+                          type: number
+                        unit:
+                          type: string
+                        standard:
+                          type: string
+                  lastUpdated:
+                    type: string
+                    format: date-time
+
+  /energy/calculate:
+    post:
+      summary: Calculate energy consumption emissions
+      tags:
+        - Energy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - consumption
+                - energyType
+              properties:
+                consumption:
+                  type: number
+                  example: 1000
+                  description: Energy consumed
+                energyType:
+                  type: string
+                  example: electricity-grid
+                  description: Energy type ID
+      responses:
+        200:
+          description: Successful calculation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CalculationResponse'
+        400:
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /energy/factors:
+    get:
+      summary: Get available energy types
+      tags:
+        - Energy
+      responses:
+        200:
+          description: List of energy types with factors
+
+  /energy/compare:
+    get:
+      summary: Compare energy types by emissions intensity
+      tags:
+        - Energy
+      responses:
+        200:
+          description: Comparison of energy types
+
+  /products/calculate:
+    post:
+      summary: Calculate product lifecycle emissions
+      tags:
+        - Products
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - quantity
+                - productType
+              properties:
+                quantity:
+                  type: number
+                  example: 100
+                  description: Quantity in kg
+                productType:
+                  type: string
+                  example: steel-production
+                  description: Product type ID
+      responses:
+        200:
+          description: Successful calculation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CalculationResponse'
+        400:
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /products/factors:
+    get:
+      summary: Get available product types
+      tags:
+        - Products
+      responses:
+        200:
+          description: List of product types with factors
+
+  /products/compare:
+    get:
+      summary: Compare products by emissions intensity
+      tags:
+        - Products
+      responses:
+        200:
+          description: Comparison of products
+
+components:
+  schemas:
+    CalculationResponse:
+      type: object
+      properties:
+        activityType:
+          type: string
+          example: Car Travel (Gasoline)
+        emissionsCO2e:
+          type: number
+          example: 19.2
+          description: Emissions in kg CO2e
+        unit:
+          type: string
+          example: kg CO2e
+        standard:
+          type: string
+          enum: [IPCC_2023, GHG_PROTOCOL, ISO_14064]
+          example: IPCC_2023
+        breakDownByComponent:
+          type: object
+          example:
+            Direct emissions: 19.2
+        offsetRecommendations:
+          type: array
+          items:
+            type: string
+        timestamp:
+          type: string
+          format: date-time
+
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+        message:
+          type: string
+
+  securitySchemes:
+    ApiKeyHeader:
+      type: apiKey
+      in: header
+      name: X-API-Key
+    ApiKeyQuery:
+      type: apiKey
+      in: query
+      name: api_key
+
+security:
+  - ApiKeyHeader: []
+  - ApiKeyQuery: []
