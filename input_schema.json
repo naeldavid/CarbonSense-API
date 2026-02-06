@@ -1,0 +1,51 @@
+{
+  "title": "CarbonSense API Input",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "endpoint": {
+      "title": "API Endpoint",
+      "type": "string",
+      "description": "Which endpoint to call",
+      "enum": [
+        "transportation/calculate",
+        "transportation/factors",
+        "energy/calculate",
+        "energy/factors",
+        "products/calculate",
+        "products/factors"
+      ],
+      "default": "transportation/calculate"
+    },
+    "distance": {
+      "title": "Distance (for transportation)",
+      "type": "number",
+      "description": "Distance traveled in km or miles"
+    },
+    "method": {
+      "title": "Transportation Method",
+      "type": "string",
+      "description": "car-gasoline, car-diesel, flight, train, bus, ferry, shipping"
+    },
+    "consumption": {
+      "title": "Energy Consumption",
+      "type": "number",
+      "description": "Energy consumed in kWh"
+    },
+    "type": {
+      "title": "Energy Type",
+      "type": "string",
+      "description": "grid, renewable, gas, oil, coal"
+    },
+    "quantity": {
+      "title": "Product Quantity",
+      "type": "number",
+      "description": "Quantity in kg"
+    },
+    "product": {
+      "title": "Product Type",
+      "type": "string",
+      "description": "steel, aluminum, plastic, concrete, clothing"
+    }
+  }
+}

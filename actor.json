@@ -1,0 +1,33 @@
+{
+  "actorSpecVersion": 1,
+  "name": "carbon-sense-api",
+  "title": "CarbonSense API",
+  "description": "Fast, reliable carbon emissions calculations with latest IPCC 2023 standards",
+  "version": "1.0.0",
+  "meta": {
+    "maintainers": [
+      {
+        "email": "support@carbonsense.dev"
+      }
+    ],
+    "documentation": "https://carbonsense.dev/docs",
+    "repository": "https://github.com/naeldavid/CarbonSense-API",
+    "categories": [
+      "UTILITIES"
+    ]
+  },
+  "input": "./input_schema.json",
+  "dockerfile": "./Dockerfile",
+  "buildTag": "latest",
+  "env": {
+    "APIFY_HEADLESS": "1"
+  },
+  "restApiEndpoints": [
+    "/api/transportation/calculate",
+    "/api/transportation/factors",
+    "/api/energy/calculate",
+    "/api/energy/factors",
+    "/api/products/calculate",
+    "/api/products/factors"
+  ]
+}
