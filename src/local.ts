@@ -1,13 +1,11 @@
 import dotenv from 'dotenv';
-import createServer from './server';
+import app from './server';
 
 // Load environment variables
 dotenv.config();
 
 const PORT = process.env.PORT || 3000;
 const NODE_ENV = process.env.NODE_ENV || 'development';
-
-const app = createServer();
 
 const server = app.listen(PORT, () => {
   console.log(`
