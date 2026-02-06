@@ -5,6 +5,13 @@ export interface AuthenticatedRequest extends Request {
   userId?: string;
 }
 
+// Valid API keys (in production, use a database)
+const VALID_API_KEYS = new Set([
+  process.env.API_KEY_1 || 'demo-key-1',
+  process.env.API_KEY_2 || 'demo-key-2',
+  process.env.API_KEY_3 || 'demo-key-3',
+].filter(Boolean));
+
 /**
  * API Key authentication middleware
  * Supports both header and query parameter API keys
@@ -29,8 +36,8 @@ export const apiKeyAuth = (
     return;
   }
 
-  // Basic API key validation (in production, validate against database/service)
-  if (validateApiKey(apiKey)) {
+  // Validate API key
+  if (VALID_API_KEYS.has(apiKey)) {
     req.apiKey = apiKey;
     next();
   } else {
@@ -40,19 +47,6 @@ export const apiKeyAuth = (
     });
   }
 };
-
-/**
- * Validate API key
- * In production, this would check against a database
- */
-function validateApiKey(key: string): boolean {
-  // For MVP, accept any non-empty key
-  // In production, validate against real database
-  if (key === 'invalid-key') {
-    return false;
-  }
-  return key.length > 0;
-}
 
 /**
  * Error handling middleware
