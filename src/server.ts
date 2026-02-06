@@ -54,3 +54,5 @@ export function createServer(): Express {
 
   return app;
 }
+
+export default createServer;
