@@ -10,13 +10,25 @@ const rateLimit_1 = require("./middleware/rateLimit");
 const routes_1 = __importDefault(require("./routes"));
 const app = (0, express_1.default)();
 // Middleware
-app.use(express_1.default.json());
-app.use(express_1.default.urlencoded({ extended: true }));
-// CORS configuration
+app.use(express_1.default.json({ limit: '10mb' }));
+app.use(express_1.default.urlencoded({ extended: true, limit: '10mb' }));
+// CORS configuration for RapidAPI
 app.use((0, cors_1.default)({
-    origin: process.env.CORS_ORIGIN || '*',
-    credentials: true,
+    origin: '*',
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'X-API-Key', 'api_key', 'x-rapidapi-key', 'x-rapidapi-host'],
+    credentials: false,
 }));
+// Explicit CORS headers
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, X-API-Key, api_key, x-rapidapi-key, x-rapidapi-host');
+    if (req.method === 'OPTIONS') {
+        return res.sendStatus(200);
+    }
+    next();
+});
 // Logging
 app.use(authentication_1.requestLogger);
 // Rate limiting (100 requests per minute)
