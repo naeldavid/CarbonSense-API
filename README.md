@@ -73,9 +73,8 @@ Response: `{"emissionsCO2e": 19.2, "unit": "kg CO2e", "standard": "IPCC_2023", .
 
 | Tier | Price | Use Case |
 | --- | --- | --- |
-| **Free** | $0 | 1,000 calls/month |
 | **RapidAPI** | $0.001/call | Developer marketplace |
-| **Direct** | $0.0008-0.0015/call | Volume discounts |
+| **Direct** | $0.001-0.0015/call | Volume discounts |
 | **Enterprise** | Custom | 500K+ calls/month, SLAs |
 
 **Why we win:** 285x margin at base price = still highly profitable while 80% cheaper than competitors ($89+/month).
