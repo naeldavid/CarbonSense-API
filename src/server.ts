@@ -1,67 +1,63 @@
-import express, { Express } from 'express';
+import express from 'express';
 import cors from 'cors';
 import { apiKeyAuth, errorHandler, requestLogger } from './middleware/authentication';
 import { rateLimit } from './middleware/rateLimit';
 import routes from './routes';
 
-function createServer(): Express {
-  const app = express();
+const app = express();
 
-  // Middleware
-  app.use(express.json());
-  app.use(express.urlencoded({ extended: true }));
-  
-  // CORS configuration
-  app.use(
-    cors({
-      origin: process.env.CORS_ORIGIN || '*',
-      credentials: true,
-    })
-  );
+// Middleware
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-  // Logging
-  app.use(requestLogger);
+// CORS configuration
+app.use(
+  cors({
+    origin: process.env.CORS_ORIGIN || '*',
+    credentials: true,
+  })
+);
 
-  // Rate limiting (100 requests per minute)
-  app.use(rateLimit(60000, 100));
+// Logging
+app.use(requestLogger);
 
-  // Authentication
-  app.use(apiKeyAuth);
+// Rate limiting (100 requests per minute)
+app.use(rateLimit(60000, 100));
 
-  // Root endpoint - redirect to API docs
-  app.get('/', (req, res) => {
-    res.json({
-      message: 'Carbon Footprint Calculation API',
-      version: '1.0.0',
-      redirect: 'See /api for full API documentation',
-    });
+// Authentication
+app.use(apiKeyAuth);
+
+// Root endpoint
+app.get('/', (req, res) => {
+  res.json({
+    message: 'Carbon Footprint Calculation API',
+    version: '1.0.0',
+    redirect: 'See /api for full API documentation',
   });
+});
 
-  // Routes
-  app.use('/api', routes);
+// Routes
+app.use('/api', routes);
 
-  // Health check endpoint
-  app.get('/health', (req, res) => {
-    res.json({
-      status: 'healthy',
-      timestamp: new Date().toISOString(),
-      uptime: process.uptime(),
-    });
+// Health check endpoint
+app.get('/health', (req, res) => {
+  res.json({
+    status: 'healthy',
+    timestamp: new Date().toISOString(),
+    uptime: process.uptime(),
   });
+});
 
-  // 404 handler
-  app.use((req, res) => {
-    res.status(404).json({
-      error: 'Not found',
-      path: req.path,
-      method: req.method,
-    });
+// 404 handler
+app.use((req, res) => {
+  res.status(404).json({
+    error: 'Not found',
+    path: req.path,
+    method: req.method,
   });
+});
 
-  // Error handling
-  app.use(errorHandler);
+// Error handling
+app.use(errorHandler);
 
-  return app;
-}
-
-export default createServer();
+export default app;
