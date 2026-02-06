@@ -1,22 +1,22 @@
 openapi: 3.0.0
 info:
-  title: CarbonSense-API
-  description: Fast, reliable carbon emissions calculation API with latest IPCC standards
+  title: CarbonSense API
+  description: Fast, reliable, and affordable carbon emissions calculations. Built with latest IPCC 2023 standards.
   version: 1.0.0
   contact:
-    name: Owner
-    email: nael@famille-david.com
+    name: Support
+    email: support@carbonsense.dev
   license:
     name: MIT
 
 servers:
-  - url: http://localhost:3000/api
+  - url: http://localhost:3000
     description: Development server
-  - url: https://https://carbon-sense-api.vercel.app
+  - url: https://carbon-sense-api.vercel.app
     description: Production server
 
 paths:
-  /transportation/calculate:
+  /api/transportation/calculate:
     post:
       summary: Calculate transportation emissions
       tags:
@@ -38,12 +38,11 @@ paths:
                 method:
                   type: string
                   example: car-gasoline
-                  description: Transportation method ID
+                  description: Transportation method (car-gasoline, car-diesel, flight, train, bus, ferry, shipping)
                 distanceUnit:
                   type: string
                   enum: [km, miles]
                   default: km
-                  description: Unit of distance
       responses:
         200:
           description: Successful calculation
@@ -53,12 +52,8 @@ paths:
                 $ref: '#/components/schemas/CalculationResponse'
         400:
           description: Invalid request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
 
-  /transportation/factors:
+  /api/transportation/factors:
     get:
       summary: Get available transportation methods
       tags:
@@ -66,31 +61,8 @@ paths:
       responses:
         200:
           description: List of transportation methods with factors
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  methods:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        id:
-                          type: string
-                        name:
-                          type: string
-                        factor:
-                          type: number
-                        unit:
-                          type: string
-                        standard:
-                          type: string
-                  lastUpdated:
-                    type: string
-                    format: date-time
 
-  /energy/calculate:
+  /api/energy/calculate:
     post:
       summary: Calculate energy consumption emissions
       tags:
@@ -103,16 +75,20 @@ paths:
               type: object
               required:
                 - consumption
-                - energyType
+                - type
               properties:
                 consumption:
                   type: number
                   example: 1000
                   description: Energy consumed
-                energyType:
+                type:
                   type: string
-                  example: electricity-grid
-                  description: Energy type ID
+                  example: grid
+                  description: Energy type (grid, renewable, gas, oil, coal)
+                unit:
+                  type: string
+                  enum: [kWh, MWh, J, kJ, MJ]
+                  default: kWh
       responses:
         200:
           description: Successful calculation
@@ -120,14 +96,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CalculationResponse'
-        400:
-          description: Invalid request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
 
-  /energy/factors:
+  /api/energy/factors:
     get:
       summary: Get available energy types
       tags:
@@ -136,18 +106,9 @@ paths:
         200:
           description: List of energy types with factors
 
-  /energy/compare:
-    get:
-      summary: Compare energy types by emissions intensity
-      tags:
-        - Energy
-      responses:
-        200:
-          description: Comparison of energy types
-
-  /products/calculate:
+  /api/products/calculate:
     post:
-      summary: Calculate product lifecycle emissions
+      summary: Calculate product manufacturing emissions
       tags:
         - Products
       requestBody:
@@ -158,16 +119,20 @@ paths:
               type: object
               required:
                 - quantity
-                - productType
+                - product
               properties:
                 quantity:
                   type: number
-                  example: 100
-                  description: Quantity in kg
-                productType:
+                  example: 10
+                  description: Quantity
+                product:
                   type: string
-                  example: steel-production
-                  description: Product type ID
+                  example: steel
+                  description: Product type (steel, aluminum, plastic, concrete, clothing)
+                unit:
+                  type: string
+                  enum: [kg, ton, m2, unit]
+                  default: kg
       responses:
         200:
           description: Successful calculation
@@ -175,14 +140,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CalculationResponse'
-        400:
-          description: Invalid request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
 
-  /products/factors:
+  /api/products/factors:
     get:
       summary: Get available product types
       tags:
@@ -191,14 +150,14 @@ paths:
         200:
           description: List of product types with factors
 
-  /products/compare:
+  /health:
     get:
-      summary: Compare products by emissions intensity
+      summary: API health check
       tags:
-        - Products
+        - Health
       responses:
         200:
-          description: Comparison of products
+          description: API is healthy
 
 components:
   schemas:
@@ -217,7 +176,6 @@ components:
           example: kg CO2e
         standard:
           type: string
-          enum: [IPCC_2023, GHG_PROTOCOL, ISO_14064]
           example: IPCC_2023
         breakDownByComponent:
           type: object
@@ -230,14 +188,6 @@ components:
         timestamp:
           type: string
           format: date-time
-
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: string
-        message:
-          type: string
 
   securitySchemes:
     ApiKeyHeader:
