@@ -1,6 +1,6 @@
 import express from 'express';
 import cors from 'cors';
-import { apiKeyAuth, errorHandler, requestLogger } from './middleware/authentication';
+import { errorHandler, requestLogger } from './middleware/authentication';
 import { rateLimit } from './middleware/rateLimit';
 import routes from './routes';
 
@@ -36,9 +36,6 @@ app.use(requestLogger);
 
 // Rate limiting (100 requests per minute)
 app.use(rateLimit(60000, 100));
-
-// Authentication
-app.use(apiKeyAuth);
 
 // Root endpoint
 app.get('/', (req, res) => {

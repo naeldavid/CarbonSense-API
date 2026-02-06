@@ -33,8 +33,6 @@ app.use((req, res, next) => {
 app.use(authentication_1.requestLogger);
 // Rate limiting (100 requests per minute)
 app.use((0, rateLimit_1.rateLimit)(60000, 100));
-// Authentication
-app.use(authentication_1.apiKeyAuth);
 // Root endpoint
 app.get('/', (req, res) => {
     res.json({
