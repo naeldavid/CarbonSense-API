@@ -28,6 +28,15 @@ export function createServer(): Express {
   // Authentication
   app.use(apiKeyAuth);
 
+  // Root endpoint - redirect to API docs
+  app.get('/', (req, res) => {
+    res.json({
+      message: 'Carbon Footprint Calculation API',
+      version: '1.0.0',
+      redirect: 'See /api for full API documentation',
+    });
+  });
+
   // Routes
   app.use('/api', routes);
 
