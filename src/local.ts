@@ -8,24 +8,7 @@ const PORT = process.env.PORT || 3000;
 const NODE_ENV = process.env.NODE_ENV || 'development';
 
 const server = app.listen(PORT, () => {
-  console.log(`
-╔════════════════════════════════════════════════════════╗
-║                                                        ║
-║  ⚡ Carbon Footprint Calculation API                  ║
-║                                                        ║
-║  Server running in ${NODE_ENV} mode
-║  🚀 http://localhost:${PORT}                             ║
-║  📚 API docs: http://localhost:${PORT}/api              ║
-║  ❤️  Health: http://localhost:${PORT}/health           ║
-║                                                        ║
-║  Features:                                             ║
-║  • Latest IPCC 2023 emission factors                  ║
-║  • Sub-second response times                          ║
-║  • Real-time data updates                             ║
-║  • Multiple calculation standards                     ║
-║                                                        ║
-╚════════════════════════════════════════════════════════╝
-  `);
+  console.log(`\n╔════════════════════════════════════════════════════════╗\n║                                                        ║\n║  ⚡ Carbon Footprint Calculation API                  ║\n║                                                        ║\n║  Server running in ${NODE_ENV} mode\n║  🚀 http://localhost:${PORT}                             ║\n║  📚 API docs: http://localhost:${PORT}/api              ║\n║  ❤️  Health: http://localhost:${PORT}/health           ║\n║                                                        ║\n║  Features:                                             ║\n║  • Latest IPCC 2023 emission factors                  ║\n║  • Sub-second response times                          ║\n║  • Real-time data updates                             ║\n║  • Multiple calculation standards                     ║\n║                                                        ║\n╚════════════════════════════════════════════════════════╝\n  `);
 });
 
 // Graceful shutdown
