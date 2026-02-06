@@ -15,37 +15,67 @@
         "products/calculate",
         "products/factors"
       ],
-      "default": "transportation/calculate"
+      "default": "transportation/calculate",
+      "editor": "select"
     },
     "distance": {
       "title": "Distance (for transportation)",
       "type": "number",
-      "description": "Distance traveled in km or miles"
+      "description": "Distance traveled in km or miles",
+      "editor": "number"
     },
     "method": {
       "title": "Transportation Method",
       "type": "string",
-      "description": "car-gasoline, car-diesel, flight, train, bus, ferry, shipping"
+      "description": "car-gasoline, car-diesel, flight, train, bus, ferry, shipping",
+      "enum": [
+        "car-gasoline",
+        "car-diesel",
+        "flight",
+        "train",
+        "bus",
+        "ferry",
+        "shipping"
+      ],
+      "editor": "select"
     },
     "consumption": {
       "title": "Energy Consumption",
       "type": "number",
-      "description": "Energy consumed in kWh"
+      "description": "Energy consumed in kWh",
+      "editor": "number"
     },
     "type": {
       "title": "Energy Type",
       "type": "string",
-      "description": "grid, renewable, gas, oil, coal"
+      "description": "grid, renewable, gas, oil, coal",
+      "enum": [
+        "grid",
+        "renewable",
+        "gas",
+        "oil",
+        "coal"
+      ],
+      "editor": "select"
     },
     "quantity": {
       "title": "Product Quantity",
       "type": "number",
-      "description": "Quantity in kg"
+      "description": "Quantity in kg",
+      "editor": "number"
     },
     "product": {
       "title": "Product Type",
       "type": "string",
-      "description": "steel, aluminum, plastic, concrete, clothing"
+      "description": "steel, aluminum, plastic, concrete, clothing",
+      "enum": [
+        "steel",
+        "aluminum",
+        "plastic",
+        "concrete",
+        "clothing"
+      ],
+      "editor": "select"
     }
   }
 }
