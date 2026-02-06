@@ -1,5 +1,5 @@
 import dotenv from 'dotenv';
-import { createServer } from './server';
+import createServer from './server';
 
 // Load environment variables
 dotenv.config();
@@ -9,8 +9,10 @@ const NODE_ENV = process.env.NODE_ENV || 'development';
 
 const app = createServer();
 
-const server = app.listen(PORT, () => {
-  console.log(`
+// Only start listening if not running on Vercel (serverless)
+if (NODE_ENV !== 'production' || !process.env.VERCEL) {
+  const server = app.listen(PORT, () => {
+    console.log(`
 ╔════════════════════════════════════════════════════════╗
 ║                                                        ║
 ║  ⚡ Carbon Footprint Calculation API                  ║
@@ -28,23 +30,24 @@ const server = app.listen(PORT, () => {
 ║                                                        ║
 ╚════════════════════════════════════════════════════════╝
   `);
-});
-
-// Graceful shutdown
-process.on('SIGTERM', () => {
-  console.log('SIGTERM signal received: closing HTTP server');
-  server.close(() => {
-    console.log('HTTP server closed');
-    process.exit(0);
   });
-});
 
-process.on('SIGINT', () => {
-  console.log('SIGINT signal received: closing HTTP server');
-  server.close(() => {
-    console.log('HTTP server closed');
-    process.exit(0);
+  // Graceful shutdown
+  process.on('SIGTERM', () => {
+    console.log('SIGTERM signal received: closing HTTP server');
+    server.close(() => {
+      console.log('HTTP server closed');
+      process.exit(0);
+    });
   });
-});
+
+  process.on('SIGINT', () => {
+    console.log('SIGINT signal received: closing HTTP server');
+    server.close(() => {
+      console.log('HTTP server closed');
+      process.exit(0);
+    });
+  });
+}
 
 export default app;
