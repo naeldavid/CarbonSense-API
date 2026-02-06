@@ -1,18 +1,18 @@
 openapi: 3.0.0
 info:
-  title: Carbon Footprint Calculation API
+  title: CarbonSense-API
   description: Fast, reliable carbon emissions calculation API with latest IPCC standards
   version: 1.0.0
   contact:
-    name: Support
-    email: support@carbonfoot.dev
+    name: Owner
+    email: nael@famille-david.com
   license:
     name: MIT
 
 servers:
   - url: http://localhost:3000/api
     description: Development server
-  - url: https://api.carbonfoot.dev
+  - url: https://https://carbon-sense-api.vercel.app
     description: Production server
 
 paths:
