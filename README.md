@@ -5,11 +5,11 @@ Fast, reliable, and affordable carbon emissions calculations. Built with latest 
 **Key Features:**
 
 - ⚡ Sub-second response times (< 100ms)
-- 🔒 Enterprise-grade (99.9% uptime)
-- 💰 $0.001/call pricing (80% cheaper than competitors)
-- 📊 Latest IPCC 2023 factors
-- 🌍 Global coverage (transportation, energy, manufacturing)
-- 🎯 Developer-friendly with excellent documentation
+- Enterprise-grade (99.9% uptime)
+- $0.001/call pricing (80% cheaper than competitors)
+- Latest IPCC 2023 factors
+- Global coverage (transportation, energy, manufacturing)
+- Developer-friendly with excellent documentation
 
 ## Quick Start
 
