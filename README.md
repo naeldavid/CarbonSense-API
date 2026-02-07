@@ -114,9 +114,7 @@ src/
 
 ## Support
 
-- 📧 Email: [support@carbonsense.dev](mailto:support@carbonsense.dev)
-- 📚 Docs: [carbonsense.dev/docs](https://carbonsense.dev/docs)
-- 🐛 Issues: [GitHub Issues](https://github.com/carbonsense/api/issues)
+- 📧 Email: [Me !](mailto:aw2rn4ikr@mozmail.com)
 
 ## License
 
