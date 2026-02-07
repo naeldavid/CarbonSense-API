@@ -7,10 +7,9 @@
   "meta": {
     "maintainers": [
       {
-        "email": "support@carbonsense.dev"
+        "email": "aw2rn4ikr@mozmail.com"
       }
     ],
-    "documentation": "https://carbonsense.dev/docs",
     "repository": "https://github.com/naeldavid/CarbonSense-API",
     "categories": [
       "UTILITIES"
