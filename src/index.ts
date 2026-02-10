@@ -40,7 +40,7 @@ app.use(rateLimit(60000, 100));
 // Root endpoint
 app.get('/', (req, res) => {
   res.json({
-    message: 'Carbon Footprint Calculation API',
+    message: 'CarbonSense-API',
     version: '1.0.0',
     redirect: 'See /api for full API documentation',
   });
