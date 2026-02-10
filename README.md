@@ -6,7 +6,7 @@ Fast, reliable, and affordable carbon emissions calculations. Built with latest 
 
 - ⚡ Sub-second response times (< 100ms)
 - Enterprise-grade (99.9% uptime)
-- $0.001/call pricing (80% cheaper than competitors)
+- $0.01/call pricing (80% cheaper than competitors)
 - Latest IPCC 2023 factors
 - Global coverage (transportation, energy, manufacturing)
 - Developer-friendly with excellent documentation
@@ -73,8 +73,8 @@ Response: `{"emissionsCO2e": 19.2, "unit": "kg CO2e", "standard": "IPCC_2023", .
 
 | Tier | Price | Use Case |
 | --- | --- | --- |
-| **RapidAPI** | $0.001/call | Developer marketplace |
-| **Direct** | $0.001-0.0015/call | Volume discounts |
+| **RapidAPI** | $0.01/call | Developer marketplace |
+| **Direct** | $0.01-0.015/call | Volume discounts |
 | **Enterprise** | Custom | 500K+ calls/month, SLAs |
 
 **Why we win:** 285x margin at base price = still highly profitable while 80% cheaper than competitors ($89+/month).
@@ -107,7 +107,7 @@ src/
 ## Why CarbonSense?
 
 ✅ 5x faster than alternatives (sub-second vs 5+ minutes)  
-✅ 10x cheaper ($0.001/call vs $89+/month)  
+✅ 10x cheaper ($0.01/call vs $89+/month)  
 ✅ Latest standards (IPCC 2023)  
 ✅ Built for developers (excellent docs, SDKs included)  
 ✅ Enterprise-ready (99.9% uptime, custom factors, white-label)
