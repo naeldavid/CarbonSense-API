@@ -16,7 +16,7 @@ router.use('/products', productRoutes);
  */
 router.get('/', (req: Request, res: Response) => {
   res.json({
-    name: 'Carbon Footprint Calculation API',
+    name: 'CarbonSense API',
     version: '1.0.0',
     status: 'operational',
     message:
@@ -45,7 +45,7 @@ router.get('/', (req: Request, res: Response) => {
       'Batch processing support',
       '99.9% uptime guarantee',
     ],
-    doc: 'https://carbonfoot.dev/docs',
+    doc: 'https://github.com/naeldavid/carbonsense-api',
   });
 });
 
